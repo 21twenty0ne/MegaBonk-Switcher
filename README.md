@@ -44,6 +44,7 @@
    - Вы также можете изменить название игры и иконку на желаемые.
    ![Шаг 4](steam_step_4.png)
 6. Теперь запускайте Megabonk Switcher прямо из библиотеки Steam!
+   ![Шаг 5](steam_step_5.png)
 
 ---
 
@@ -85,3 +86,4 @@ To launch the switcher directly from Steam, follow these steps:
    - You can also change the name and icon to whatever you prefer.
    ![Step 4](steam_step_4.png)
 6. Launch Megabonk Switcher directly from your Steam Library!
+   ![Step 5](steam_step_5.png)
