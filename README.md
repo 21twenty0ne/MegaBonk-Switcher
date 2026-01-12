@@ -46,6 +46,18 @@
 6. Теперь запускайте Megabonk Switcher прямо из библиотеки Steam!
    ![Шаг 5](steam_step_5.png)
 
+
+### ❓ Частые вопросы (FAQ)
+
+**Q: Обязательно ли теперь запускать игру только через свитчер?**  
+**A:** Нет. Свитчер необходим только для **смены** версии (перехода с официальной версии на MegaLadder или наоборот). После того как нужная версия выбрана, вы можете запускать игру привычным способом — через библиотеку Steam или ярлык на рабочем столе.
+
+**Q: Безопасна ли программа? Есть ли риск бана?**  
+**A:** Использование свитчера безопасно. Программа не вмешивается в код игры или память процесса. Она работает исключительно на уровне файловой системы: подменяет папку с файлами мода и корректирует пару настроек.
+
+**Q: Как полностью удалить свитчер и вернуть оригинальную игру?**  
+**A:** Просто выберите режим **[2] STEAM OFFICIAL** в свитчере перед удалением. Это вернет оригинальные файлы игры на место. Если вы случайно удалили свитчер, находясь в модифицированной версии — не страшно, просто выполните «Проверку целостности файлов» в свойствах игры в Steam.
+
 ---
 
 <a name="english"></a>
@@ -87,3 +99,14 @@ To launch the switcher directly from Steam, follow these steps:
    ![Step 4](steam_step_4.png)
 6. Launch Megabonk Switcher directly from your Steam Library!
    ![Step 5](steam_step_5.png)
+
+### ❓ Frequently Asked Questions (FAQ)
+
+**Q: Do I have to launch the game via the switcher every time?**  
+**A:** No. The switcher is only needed when you want to **change** versions (switching from Official to MegaLadder or vice versa). Once the desired version is selected, you can launch the game as usual — via your Steam Library or a desktop shortcut.
+
+**Q: Is this program safe? Will I get banned?**  
+**A:** Using the switcher is completely safe. It does not inject code into the game or modify process memory. It works strictly at the file system level: it swaps the mods folder and adjusts a few settings.
+
+**Q: How do I completely remove the switcher and restore the original game?**  
+**A:** Simply select **[2] STEAM OFFICIAL** mode in the switcher before deleting it. This restores the original game files. If you accidentally deleted the switcher while in modded mode, don't worry — just run "Verify integrity of game files" in the game's Steam properties.
