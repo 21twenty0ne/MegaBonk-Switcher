@@ -204,6 +204,7 @@ mklink /J "%LINK_NAME%" "%CLEAN_DIR%" >nul
 :: обновление конфига для ванилы
 powershell -Command "Write-Host '%MSG_SYNC_CONFIG%' -ForegroundColor DarkGray"
 if exist "%CONFIG_PATH%" (
+    attrib -r "%CONFIG_PATH%"
     powershell -Command "$j = Get-Content '%CONFIG_PATH%' -Raw | ConvertFrom-Json; $j.cfGameSettings | Add-Member 'hide_leaderboards' 0 -Force -MemberType NoteProperty; $j.cfGameSettings | Add-Member 'upload_score_to_leaderboard' 1 -Force -MemberType NoteProperty; $j | ConvertTo-Json -Depth 10 | Set-Content '%CONFIG_PATH%'"
     powershell -Command "Write-Host '%MSG_MODE_ACTIVE_OFFICIAL%' -ForegroundColor Green"
 )
@@ -220,6 +221,7 @@ mklink /J "%LINK_NAME%" "%MODDED_DIR%" >nul
 :: обновление конфига для лиги
 powershell -Command "Write-Host '%MSG_APPLY_RULES%' -ForegroundColor DarkGray"
 if exist "%CONFIG_PATH%" (
+    attrib -r "%CONFIG_PATH%"
     powershell -Command "$j = Get-Content '%CONFIG_PATH%' -Raw | ConvertFrom-Json; $j.cfGameSettings | Add-Member 'hide_leaderboards' 1 -Force -MemberType NoteProperty; $j.cfGameSettings | Add-Member 'upload_score_to_leaderboard' 0 -Force -MemberType NoteProperty; $j | ConvertTo-Json -Depth 10 | Set-Content '%CONFIG_PATH%'"
     powershell -Command "Write-Host '%MSG_MODE_ACTIVE_LADDER%' -ForegroundColor Green"
 )
