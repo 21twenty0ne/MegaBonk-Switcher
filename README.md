@@ -31,14 +31,18 @@
 
 1. Откройте библиотеку Steam.
 2. В нижнем левом углу нажмите **«Добавить игру»** -> **«Добавить стороннюю игру...»**.
+   ![Шаг 1](steam_step_1.png)
 3. В открывшемся окне нажмите **«Обзор...»** и выберите **любой файл** (например, любой .exe), чтобы просто добавить что-то в список.
+   ![Шаг 2](steam_step_2.png)
 4. Найдите добавленную игру в списке слева, нажмите на неё правой кнопкой мыши и выберите **«Свойства...»**.
+   ![Шаг 3](steam_step_3.png)
 5. Измените следующие поля:
    - **Расположение**: Укажите полный путь к вашему файлу `megabonkswitcher.bat`.  
      *Пример:* `"E:\steam\steamapps\common\megabonkswitcher.bat"`
    - **Рабочая папка**: Укажите папку, в которой лежит этот .bat файл.  
      *Пример:* `"E:\steam\steamapps\common"`
    - Вы также можете изменить название игры и иконку на желаемые.
+   ![Шаг 4](steam_step_4.png)
 6. Теперь запускайте Megabonk Switcher прямо из библиотеки Steam!
 
 ---
@@ -68,12 +72,16 @@ To launch the switcher directly from Steam, follow these steps:
 
 1. Open your Steam Library.
 2. Click **"Add a Game"** in the bottom-left corner -> **"Add a Non-Steam Game..."**.
+   ![Step 1](steam_step_1.png)
 3. Click **"Browse..."** and select **any file** (e.g., any .exe file) just to add an entry to the list.
+   ![Step 2](steam_step_2.png)
 4. Locate the newly added game in your library list, right-click it, and select **"Properties..."**.
+   ![Step 3](steam_step_3.png)
 5. Edit the following fields:
    - **Target**: Enter the full path to your `megabonkswitcher.bat` file.  
      *Example:* `"E:\steam\steamapps\common\megabonkswitcher.bat"`
    - **Start In**: Enter the folder containing the .bat file.  
      *Example:* `"E:\steam\steamapps\common"`
    - You can also change the name and icon to whatever you prefer.
+   ![Step 4](steam_step_4.png)
 6. Launch Megabonk Switcher directly from your Steam Library!
