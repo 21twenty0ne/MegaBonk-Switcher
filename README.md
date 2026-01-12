@@ -2,6 +2,8 @@
 
 [Русский](#russian) | [English](#english)
 
+![Preview](preview.png)
+
 ---
 
 <a name="russian"></a>
