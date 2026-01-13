@@ -1,5 +1,7 @@
 @echo off
 setlocal EnableDelayedExpansion
+
+:: настройка кодировки консоли для работы с русским языком
 chcp 65001 >nul
 
 :: установка размера окна
@@ -16,17 +18,17 @@ set "CONFIG_PATH=%USERPROFILE%\AppData\LocalLow\Ved\Megabonk\Saves\LocalDir\conf
 set "LANG_FILE=megabonk_lang.ini"
 :: ==========================================
 
-:: проверка админа
+:: проверка прав администратора для создания симлинков
 openfiles >nul 2>&1
 if %errorlevel% neq 0 (
-    powershell -Command "Write-Host '  ! Access denied. Restarting as Admin...' -ForegroundColor Red"
+    powershell -Command "Write-Host '  ! Недостаточно прав. Запуск от имени администратора...' -ForegroundColor Red"
     powershell -Command "Start-Process '%~nx0' -Verb RunAs"
     exit /b
 )
 
 cd /d "%~dp0"
 
-:: --- ЯЗЫКОВАЯ ЛОГИКА ---
+:: логика выбора и сохранения языка
 if not exist "%LANG_FILE%" goto :SelectLang
 set /p USER_LANG=<"%LANG_FILE%"
 if "%USER_LANG%"=="RU" (
@@ -38,7 +40,6 @@ goto :Init
 
 :SelectLang
 cls
-echo.
 echo.
 echo      [ 1 ] English
 echo      [ 2 ] Русский
@@ -104,12 +105,10 @@ set "MSG_MODE_ACTIVE_LADDER=  ✔ Режим активен: MEGALADDER"
 set "MSG_LAUNCHING=  ● Запуск Steam..."
 exit /b
 
-:: --- ИНИЦИАЛИЗАЦИЯ ---
 :Init
-:: логика первичной настройки папок
+:: проверка существования рабочих директорий
 if exist "%CLEAN_DIR%" if exist "%MODDED_DIR%" goto :MainMenu
 
-:: ui первичной инициализации
 cls
 echo.
 powershell -Command "Write-Host '%MSG_INIT%' -ForegroundColor Cyan"
@@ -120,6 +119,7 @@ if not exist "%LINK_NAME%" (
     exit /b
 )
 
+:: определение текущего состояния игры при первом запуске
 if not exist "%LINK_NAME%\BepInEx" (
     powershell -Command "Write-Host '%MSG_DETECT_VANILLA%' -ForegroundColor Gray"
     ren "%LINK_NAME%" "%CLEAN_DIR%"
@@ -135,18 +135,16 @@ if not exist "%LINK_NAME%\BepInEx" (
     if exist "%CLEAN_DIR%\BepInEx" rmdir /s /q "%CLEAN_DIR%\BepInEx"
     if exist "%CLEAN_DIR%\winhttp.dll" del /f /q "%CLEAN_DIR%\winhttp.dll"
     if exist "%CLEAN_DIR%\doorstop_config.ini" del /f /q "%CLEAN_DIR%\doorstop_config.ini"
-    if exist "%CLEAN_DIR%\changelog.txt" del /f /q "%CLEAN_DIR%\changelog.txt"
 )
 
+:: создание базовой точки входа через джанкшен
 mklink /J "%LINK_NAME%" "%MODDED_DIR%" >nul
 timeout /t 1 >nul
 
-:: --- ГЛАВНОЕ МЕНЮ ---
 :MainMenu
 cls
 echo.
 echo.
-:: логотип ansi shadow
 powershell -Command "Write-Host '                     ██████╗  █████╗ ███████╗' -ForegroundColor Cyan"
 powershell -Command "Write-Host '                    ██╔════╝ ██╔══██╗╚══███╔╝' -ForegroundColor Cyan"
 powershell -Command "Write-Host '                    ██║  ███╗███████║  ███╔╝ ' -ForegroundColor Cyan"
@@ -154,32 +152,23 @@ powershell -Command "Write-Host '                    ██║   ██║██
 powershell -Command "Write-Host '                    ╚██████╔╝██║  ██║███████╗' -ForegroundColor Cyan"
 powershell -Command "Write-Host '                     ╚═════╝ ╚═╝  ╚═╝╚══════╝' -ForegroundColor Cyan"
 echo.
-:: подпись автора
 powershell -Command "Write-Host '            MEGABONK SWITCHER' -ForegroundColor White -NoNewline; Write-Host '  ::  v1.0 by 21twentyone' -ForegroundColor DarkGray"
 echo.
-:: разделитель
 powershell -Command "Write-Host '  ══════════════════════════════════════════════════════════════════════════' -ForegroundColor DarkGray"
 echo.
 
-:: option 1 - megaladder
 powershell -Command "Write-Host '%MSG_MENU_1_TITLE%' -ForegroundColor White"
 powershell -Command "Write-Host '%MSG_MENU_1_DESC%' -ForegroundColor DarkGray"
 echo.
-
-:: option 2 - steam
 powershell -Command "Write-Host '%MSG_MENU_2_TITLE%' -ForegroundColor White"
 powershell -Command "Write-Host '%MSG_MENU_2_DESC%' -ForegroundColor DarkGray"
 echo.
-
-:: option 3 - lang
 powershell -Command "Write-Host '%MSG_MENU_3_TITLE%' -ForegroundColor White"
 powershell -Command "Write-Host '%MSG_MENU_3_DESC%' -ForegroundColor DarkGray"
-
 echo.
 powershell -Command "Write-Host '  ══════════════════════════════════════════════════════════════════════════' -ForegroundColor DarkGray"
 echo.
 
-:: выбор режима
 set /p "UserChoice=%MSG_SELECT_MODE%"
 
 if "%UserChoice%"=="1" goto :SetModded
@@ -191,17 +180,13 @@ goto :MainMenu
 if exist "%LANG_FILE%" del "%LANG_FILE%"
 goto :SelectLang
 
-
-:: --- ДЕЙСТВИЯ ---
 :SetVanilla
 echo.
 powershell -Command "Write-Host '%MSG_LOAD_OFFICIAL%' -ForegroundColor Cyan"
-
-:: пересоздание линка на ванилу
 if exist "%LINK_NAME%" rmdir "%LINK_NAME%"
 mklink /J "%LINK_NAME%" "%CLEAN_DIR%" >nul
 
-:: обновление конфига для ванилы
+:: патчинг json конфига для включения лидербордов
 powershell -Command "Write-Host '%MSG_SYNC_CONFIG%' -ForegroundColor DarkGray"
 if exist "%CONFIG_PATH%" (
     attrib -r "%CONFIG_PATH%"
@@ -213,12 +198,10 @@ goto :LaunchGame
 :SetModded
 echo.
 powershell -Command "Write-Host '%MSG_LOAD_COMPETITIVE%' -ForegroundColor Cyan"
-
-:: пересоздание линка на моды
 if exist "%LINK_NAME%" rmdir "%LINK_NAME%"
 mklink /J "%LINK_NAME%" "%MODDED_DIR%" >nul
 
-:: обновление конфига для лиги
+:: патчинг json конфига для отключения лидербордов (правила лиги)
 powershell -Command "Write-Host '%MSG_APPLY_RULES%' -ForegroundColor DarkGray"
 if exist "%CONFIG_PATH%" (
     attrib -r "%CONFIG_PATH%"
